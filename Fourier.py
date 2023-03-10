@@ -25,7 +25,11 @@ class DiscreteFourierTransform:
         plt.xlabel('Frequency (Hz)')
         plt.ylabel('DFT Amplitude')
         plt.show()
+# recetangular window
 
+#sin window
+
+#hanning window
 
 
 
