@@ -8,28 +8,33 @@ class DiscreteFourierTransform:
 
     def DFT(self):
         N = len(self.data)
-        n = np.arange(N)
-        k = n.reshape((N,1))
-        # we first create a N*N matrix, n is a matrix of size (1, N), is a matrix (N, 1)
-        e = np.exp(-2j * np.pi * k * n / N)
-        # next we used e to dot with data to get a N*1 matrix, which represents X at different k
-        X = np.dot(e, self.data)
-
+        X = np.fft.fft(self.data ) # Compute the DFT using numpy's fft function
         return X
     
     def DFTplot(self):
-        X = self.DFT()
-        T = len(self.data)/self.samplerate
-        frequency = np.arange(len(self.data))/ T
-        plt.stem(frequency, abs(X))
+        N = len(self.data)
+        freq = np.fft.fftfreq(N, d=1/self.samplerate)  # Compute the frequency axis
+        plt.figure(figsize=(16, 8))
+        plt.stem(freq, abs(self.DFT()))
         plt.xlabel('Frequency (Hz)')
         plt.ylabel('DFT Amplitude')
+        plt.title('Magnitude Spectrum')
         plt.show()
-# recetangular window
-
-#sin window
-
-#hanning window
+    def apply_window(self, windowfunction, sampling_range):
+        windowed = np.transpose(self.data[0:sampling_range])[0] * windowfunction
+        X = np.fft.fft(windowed)
+        print(len(X))
+        print(X)
+        N = len(windowed)
+        freq = np.fft.fftfreq(N, d=1/self.samplerate)
+        print(len(freq))
+        print(freq)
+        plt.figure(figsize=(16, 8))
+        plt.stem(freq, abs(X))
+        plt.xlabel('Frequency (Hz)')
+        plt.ylabel('DFT Amplitude')
+        plt.title('Magnitude Spectrum')
+        plt.show()
 
 
 
