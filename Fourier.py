@@ -15,7 +15,7 @@ class DiscreteFourierTransform:
         N = len(self.data)
         freq = np.fft.fftfreq(N, d=1/self.samplerate)  # Compute the frequency axis
         plt.figure(figsize=(16, 8))
-        plt.stem(freq, abs(self.DFT())/self.samplerate)
+        plt.stem(freq, abs(self.DFT()))
         plt.xlabel('Frequency (Hz)')
         plt.ylabel('DFT Amplitude')
         plt.title('Magnitude Spectrum')
